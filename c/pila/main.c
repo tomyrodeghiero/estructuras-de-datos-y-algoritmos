@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/* Programa en el lenguaje C que implementa un tipo polimórfico Pila, el puede utilizarse 
+para pilas de enteros y de caracteres. (Ayuda: Analizar punteros a void). 
+Las operaciones que incluye esta Pila son: tope, apilar, desapilar, vaciar y elementos. */
+
 typedef struct Nodo {
     void* valor;
     struct Nodo *siguiente;
