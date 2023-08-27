@@ -1,21 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "pila.h"
 
 /* Programa en el lenguaje C que implementa un tipo polimórfico Pila, el puede utilizarse 
 para pilas de enteros y de caracteres. (Ayuda: Analizar punteros a void). 
 Las operaciones que incluye esta Pila son: tope, apilar, desapilar, vaciar y elementos. */
 
-typedef struct Nodo {
-    void* valor;
-    struct Nodo *siguiente;
-} Nodo;
-
-typedef struct {
-    Nodo *tope;
-} Pila;
-
 // función que permite crear una pila
-Pila* crearPila() {
+Pila* crearPila(Tipo tipo) {
     Pila *pila = (Pila*) malloc(sizeof(Pila));
 
     if (pila == NULL) {
@@ -24,21 +16,33 @@ Pila* crearPila() {
     }
 
     pila->tope = NULL;
-    // pila->elementos = 0;
+    pila->tipo = tipo;
+    pila->elementos = 0;
     return pila;
 }
 
 void mostrarPila(Pila *pila) {
     Nodo *nodoTemporal = pila->tope;
 
-    printf( "[ " );
+    printf("[");
 
     while (nodoTemporal != NULL) {
-        printf("%d, ", nodoTemporal->valor);
+        // Decidir cómo mostrar la información del nodo dependiendo si es de tipo Entero o Caracter
+        if (pila->tipo == Entero) {
+            printf("%d", *(int*)nodoTemporal->valor);
+        } else {
+            printf("'%c'", *(char*)nodoTemporal->valor);
+        }
+
+        // Si hay un siguiente nodo, imprimir una coma y un espacio
+        if (nodoTemporal->siguiente != NULL) {
+            printf(", ");
+        }
+
         nodoTemporal = nodoTemporal->siguiente;
     }
     
-    printf( "] " );
+    printf("]\n");
 }
 
 // - tope : Retorna el elemento en el tope de una pila no vac ́ıa sin modificar a la misma.
@@ -65,7 +69,7 @@ int apilar(Pila *pila, void* elemento) {
     nodo->valor = elemento;
     nodo->siguiente = pila->tope;
     pila->tope = nodo;
-    // pila->elementos++;
+    pila->elementos++;
     return 0;
 }
 
@@ -80,7 +84,7 @@ void* desapilar(Pila *pila) {
     void *elemento = nodoTemporal->valor;
     pila->tope = nodoTemporal->siguiente;
     free(nodoTemporal);
-    // pila->elementos--;
+    pila->elementos--;
 
     return elemento;
 }
@@ -94,7 +98,8 @@ void vaciar(Pila *pila) {
 
 // - elementos : Retorna la cantidad de elementos presentes en la pila.
 int elementos(Pila *pila) {
-    int elementos = 0;
+    // Forma 1: sin la cantidad de elementos definada en un campo del registro de la pila
+    /* int elementos = 0;
     Nodo *nodoTemporal = pila->tope;
 
     while (nodoTemporal != NULL) {
@@ -102,5 +107,8 @@ int elementos(Pila *pila) {
         nodoTemporal = nodoTemporal->siguiente;
     }
 
-    return elementos;
+    return elementos; */
+
+    // Forma 2: con la cantidad de elementos definada en un campo del registro de la pila
+    return pila->elementos;
 }

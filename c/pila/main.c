@@ -7,7 +7,7 @@ para pilas de enteros y de caracteres. (Ayuda: Analizar punteros a void).
 Las operaciones que incluye esta Pila son: tope, apilar, desapilar, vaciar y elementos. */
 
 int main() {
-    Pila *pilaEnteros = crearPila();
+    Pila *pilaEnteros = crearPila(Entero);
     int num1 = 5, num2 = 10;
     apilar(pilaEnteros, &num1);
     apilar(pilaEnteros, &num2);
@@ -15,13 +15,15 @@ int main() {
 
     mostrarPila(pilaEnteros);
 
-    Pila *pilaCaracteres = crearPila();
+    Pila *pilaCaracteres = crearPila(Caracter);
     char c1 = 'a', c2 = 'b', c3 = 'c';
 
     apilar(pilaCaracteres, &c1);
     apilar(pilaCaracteres, &c2);
     apilar(pilaCaracteres, &c3);
     printf("Elementos en la pila de caracteres: %d\n", elementos(pilaCaracteres));
+
+    mostrarPila(pilaCaracteres);
 
     // Limpieza de la memoria
     vaciar(pilaEnteros);

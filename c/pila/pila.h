@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// Tipo polimórfico Pila
+typedef enum {Entero, Caracter} Tipo;
+
 typedef struct Nodo {
     void* valor;
     struct Nodo *siguiente;
@@ -8,10 +11,12 @@ typedef struct Nodo {
 
 typedef struct {
     Nodo *tope;
+    Tipo tipo;
+    int elementos;
 } Pila;
 
 // función que permite crear una pila
-Pila* crearPila();
+Pila* crearPila(Tipo tipo);
 
 // mostrar por pantalla la pila
 void mostrarPila(Pila *pila);
