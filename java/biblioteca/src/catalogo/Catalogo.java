@@ -51,7 +51,11 @@ public class Catalogo {
 	* @return {@code true} sii no hay capacidad disponible.
 	*/
 	public boolean estaLleno() {
-		throw new UnsupportedOperationException("Debe implementar este método");
+		if (nroLibros == libros.length) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	/**
@@ -61,7 +65,13 @@ public class Catalogo {
 	* @see #estaLleno()
 	*/
 	public boolean agregarLibro(Libro libro) {
-		throw new UnsupportedOperationException("Debe implementar este método (el Libro debe ser agregado al final)");
+		if (!estaLleno()) {
+			libros[nroLibros] = libro;
+			nroLibros++;
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	/**
@@ -70,13 +80,32 @@ public class Catalogo {
 	* @return un libro {@code l} que pertenece a este {@code Catalogo} sii {@code l.titulo().equals(titulo)}, {@code null} en caso contrario.
 	*/
 	public Libro buscarPorTitulo(String titulo) {
-		throw new UnsupportedOperationException("Debe implementar este método");
+		for (int i = 0; i < nroLibros; i++) {
+			if (libros[i].titulo().equals(titulo)) {
+				return libros[i];
+			}
+		}
+
+		return null;
 	}
-	
+
 	@Override
 	public String toString() {
-		throw new UnsupportedOperationException("Debe implementar este método (debe usar el método toString() de Libro)");
-	}
-	
+		StringBuilder sb = new StringBuilder();
+		sb.append("Catálogo de Libros:\n");
+		sb.append("--------------------\n");
+		sb.append("Capacidad máxima: ").append(libros.length).append("\n");
+		sb.append("Cantidad de libros: ").append(nroLibros).append("\n");
+		sb.append("Libros en el cátalogo:\n");
 
+		if (nroLibros == 0) {
+			sb.append("El catálogo está vacío.\n");
+		} else {
+			for (int i = 0; i < nroLibros; i++) {
+				sb.append("[").append(i + 1).append("] ").append(libros[i]).append("\n");
+			}
+		}
+
+		return sb.toString();
+	}
 }

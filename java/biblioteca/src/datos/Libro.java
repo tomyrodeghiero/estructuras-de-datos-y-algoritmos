@@ -89,7 +89,8 @@ public class Libro {
 	
 	@Override
 	public String toString() {
-		throw new UnsupportedOperationException("Debe implementar este método");
+		// return "Libro: " + titulo + " de " + autor + " (" + nroPaginas + " páginas)";
+		return String.format("Libro: %s - Author: %s (%d páginas)", titulo, autor, nroPaginas);
 	}
 	
 	@Override
