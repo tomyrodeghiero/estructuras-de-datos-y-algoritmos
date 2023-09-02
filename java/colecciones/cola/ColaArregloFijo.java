@@ -50,47 +50,93 @@ public class ColaArregloFijo<T> implements Cola<T> {
 
 	@Override
 	public boolean esVacia() {
-		throw new UnsupportedOperationException("Implementar y eliminar esta sentencia");	
+		return (elementos == 0);
 	}
 
 	@Override
 	public int elementos() {
-		throw new UnsupportedOperationException("Implementar y eliminar esta sentencia");
+		return elementos;
 	}
 
 	@Override
 	public boolean encolar(T elem) {
-		throw new UnsupportedOperationException("Implementar y eliminar esta sentencia");		
+		if (esVacia()) {
+			arreglo[0] = elem;
+			elementos++;
+			return true;
+		} else {
+			if (elementos < arreglo.length) {
+				arreglo[elementos] = elem;
+				elementos++;
+				return true;
+			} else {
+				return false;
+			}
+		}
 	}
 
 	@Override
 	public T desencolar() {
-		throw new UnsupportedOperationException("Implementar y eliminar esta sentencia");
+		if (esVacia()) {
+			throw new IllegalStateException("La cola está vacía");
+		} else {
+			T elem = elemento(0);
+			for (int i = 0; i < elementos; i++) {
+				arreglo[i] = arreglo[i+1];
+			}
+			elementos--;
+			return elem;
+		}
 	}
 
 	@Override
 	public T primero() {
-		throw new UnsupportedOperationException("Implementar y eliminar esta sentencia");	
+		if (esVacia()) {
+			throw new IllegalStateException("La cola está vacía");
+		} else {
+			return elemento(0);
+		}
 	}
 
 	@Override
 	public void vaciar() {
-		throw new UnsupportedOperationException("Implementar y eliminar esta sentencia");	
+		elementos = 0;
 	}
 
 	@Override
 	public boolean repOK() {
-		throw new UnsupportedOperationException("Implementar y eliminar esta sentencia");	
+		return (arreglo != null && elementos >= 0 && elementos <= arreglo.length);
 	}
 
 	@Override
 	public String toString() {
-		throw new UnsupportedOperationException("Implementar y eliminar esta sentencia");	
-	}
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+
+		for (int i = 0; i < elementos; i++) {
+			sb.append(arreglo[i]);
+			if (i < elementos - 1) sb.append(", ");
+		}
+
+        sb.append("]");
+        return sb.toString();	}
 
 	@Override
 	public boolean equals(Object other) {
-		throw new UnsupportedOperationException("Implementar y eliminar esta sentencia");	
+		if (this == other) return true;
+		if (other == null || !(other instanceof ColaArregloFijo)) return false;
+
+		ColaArregloFijo<?> otraCola = (ColaArregloFijo<?>) other;
+		if (elementos != otraCola.elementos) return false;
+
+		for (int i = 0; i < elementos; i++) {
+			if (arreglo[i] == null) {
+				if (otraCola.arreglo[i] != null) return false;
+			} else {
+				if (!arreglo[i].equals(otraCola.arreglo[i])) return false;
+			}
+		}
+		return true;
 	}
 
 	/**
