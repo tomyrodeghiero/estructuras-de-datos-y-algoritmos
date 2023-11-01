@@ -1,9 +1,8 @@
+/* ejemplo para manipular listas */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "lista_enteros.h"	
-
-/* ejemplo para manipular listas */
-
 
 int main( int argc, char * argv[] )
 {

@@ -1,0 +1,8 @@
+{
+  "files.associations": {
+    "lista_enteros.h": "c",
+    "list": "cpp"
+  },
+  "java.debug.settings.onBuildFailureProceed": true,
+  "C_Cpp.errorSquiggles": "disabled"
+}

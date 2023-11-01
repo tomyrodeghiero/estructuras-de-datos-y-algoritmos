@@ -4,9 +4,12 @@ import java.util.Scanner;
 
 import colecciones.cola.ColaArregloFijo;
 
-public class MainColaArregloFijo {
-    // En esta clase, se implementa con TAD ColaArregloFijo un programa que decide
-    // si dada una cadena ingresada por línea de comandos es un palíndromo o no
+public class MainEsPalindromoColaArregloFijo {
+    /*
+     * En esta clase, se implementa con TAD ColaArregloFijo un programa que decide
+     * // si dada una cadena ingresada por línea de comandos es un palíndromo o no
+     */
+
     // Un palíndromo es una cadena que se lee igual de izquierda a derecha que de
     // derecha a izquierda
 
@@ -19,26 +22,19 @@ public class MainColaArregloFijo {
         try (Scanner scanner = new Scanner(System.in)) {
             String inputString = scanner.nextLine();
 
-            // Encolar cada caracter de la cadena
+            // Encolar cada caracter de la cadena en orden original y orden inverso
             for (int i = 0; i < inputString.length(); i++) {
-                String caracter = inputString.substring(i, i + 1);
-                cola.encolar(caracter);
-                colaInversa.encolar(caracter);
+                String caracterOriginal = inputString.substring(i, i + 1);
+                cola.encolar(caracterOriginal);
+
+                String caracterInverso = inputString.substring(inputString.length() - i - 1, inputString.length() - i);
+                colaInversa.encolar(caracterInverso);
             }
 
-            // Desencolar elementos de la cola inversa y ponerlos en orden inverso
-            ColaArregloFijo<String> colaTemporal = new ColaArregloFijo<String>();
-            while (!colaInversa.esVacia()) {
-                colaTemporal.encolar(colaInversa.desencolar());
-            }
-
-            // Comparar la cadena original con los elementos desencolados
+            // Comparar la cadena original con los elementos encolados en orden inverso
             boolean esPalindromo = true;
-            while (!cola.esVacia() && !colaTemporal.esVacia()) {
-                if (!cola.desencolar().equals(colaTemporal.desencolar())) {
-                    esPalindromo = false;
-                    break;
-                }
+            if (!(cola).equals(colaInversa)) {
+                esPalindromo = false;
             }
 
             if (esPalindromo)

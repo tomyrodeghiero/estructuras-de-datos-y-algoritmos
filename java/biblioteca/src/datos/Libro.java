@@ -60,7 +60,7 @@ public class Libro {
 	* @param titulo : el nuevo título de este Libro.
 	*/
 	public void titulo(String titulo) {
-		this.autor = titulo;
+		this.titulo = titulo;
 	}
 	
 	/**
@@ -89,9 +89,14 @@ public class Libro {
 	
 	@Override
 	public String toString() {
+<<<<<<< Updated upstream
+                throw new UnsupportedOperationException("Debe implementar este método");
+        }
+=======
 		// return "Libro: " + titulo + " de " + autor + " (" + nroPaginas + " páginas)";
 		return String.format("Libro: %s - Author: %s (%d páginas)", titulo, autor, nroPaginas);
 	}
+>>>>>>> Stashed changes
 	
 	@Override
 	public boolean equals(Object otro) {
@@ -113,4 +118,4 @@ public class Libro {
 		return otroLibro.nroPaginas == nroPaginas;
 	}
 
-}
+

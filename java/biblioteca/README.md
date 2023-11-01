@@ -1,3 +1,5 @@
+<!-- Ejercicio 2 - d) -->
+
 # Comparación entre el operador `==` y el método `.equals()`
 
 En Java, hay dos formas principales de comparar objetos: el operador `==` y el método `.equals()`. Cada uno tiene un propósito y un comportamiento específico:

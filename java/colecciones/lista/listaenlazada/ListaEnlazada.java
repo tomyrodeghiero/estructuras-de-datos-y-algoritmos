@@ -59,7 +59,8 @@ public class ListaEnlazada<T> implements Lista<T> {
             Nodo temp = cabeza;
 
             for (int i = 1; i < indice; i++) {
-                if (temp.siguiente == null) return false;
+                if (temp.siguiente == null)
+                    return false;
                 temp = temp.siguiente;
             }
 
@@ -73,7 +74,8 @@ public class ListaEnlazada<T> implements Lista<T> {
 
     @Override
     public T eliminar(int indice) {
-        if (indice < 0 || indice >= size) throw new IndexOutOfBoundsException("El índice está fuera de rango.");
+        if (indice < 0 || indice >= size)
+            throw new IndexOutOfBoundsException("El índice está fuera de rango.");
 
         T elem;
         if (indice == 0) {
@@ -86,7 +88,7 @@ public class ListaEnlazada<T> implements Lista<T> {
             }
 
             elem = temp.siguiente.dato;
-            
+
             temp.siguiente = temp.siguiente.siguiente;
         }
 
@@ -96,7 +98,8 @@ public class ListaEnlazada<T> implements Lista<T> {
 
     @Override
     public T obtener(int indice) {
-        if (indice < 0 || indice >= size) throw new IndexOutOfBoundsException(indice + " está fuera de rango.");
+        if (indice < 0 || indice >= size)
+            throw new IndexOutOfBoundsException(indice + " está fuera de rango.");
 
         Nodo temp = cabeza;
 
@@ -109,7 +112,8 @@ public class ListaEnlazada<T> implements Lista<T> {
 
     @Override
     public Lista<T> subLista(int desdeIndInclusivo, int hastaIndExclusivo) {
-        if (desdeIndInclusivo < 0 || hastaIndExclusivo > size || desdeIndInclusivo > hastaIndExclusivo) throw new IndexOutOfBoundsException("Los índices están fuera de rango.");
+        if (desdeIndInclusivo < 0 || hastaIndExclusivo > size || desdeIndInclusivo > hastaIndExclusivo)
+            throw new IndexOutOfBoundsException("Los índices están fuera de rango.");
 
         Lista<T> subLista = new ListaEnlazada<T>();
         Nodo temp = cabeza;
@@ -127,7 +131,8 @@ public class ListaEnlazada<T> implements Lista<T> {
     public boolean contiene(T elem) {
         Nodo temp = cabeza;
         while (temp != null) {
-            if (temp.dato.equals(elem)) return true;
+            if (temp.dato.equals(elem))
+                return true;
             temp = temp.siguiente;
         }
 
@@ -152,19 +157,30 @@ public class ListaEnlazada<T> implements Lista<T> {
 
     @Override
     public boolean repOK() {
-        return true;
+        if (size < 0)
+            return false;
+
+        Nodo temp = cabeza;
+        int contador = 0;
+        while (temp != null) {
+            contador++;
+            temp = temp.siguiente;
+        }
+
+        return contador == size;
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("[");
-        
+
         Nodo temp = cabeza;
         while (temp != null) {
             sb.append(temp.dato);
             temp = temp.siguiente;
-            if (temp != null) sb.append(", ");
+            if (temp != null)
+                sb.append(", ");
         }
 
         sb.append("]");
@@ -173,13 +189,16 @@ public class ListaEnlazada<T> implements Lista<T> {
 
     @Override
     public boolean equals(Object otro) {
-        if (!(otro instanceof Lista)) return false;
+        if (!(otro instanceof Lista))
+            return false;
         Lista<?> otraLista = (Lista<?>) otro;
-        if (this.elementos() != otraLista.elementos()) return false;
+        if (this.elementos() != otraLista.elementos())
+            return false;
 
         Nodo temp = cabeza;
         for (int i = 0; i < size; i++) {
-            if (!temp.dato.equals(otraLista.obtener(i))) return false;
+            if (!temp.dato.equals(otraLista.obtener(i)))
+                return false;
             temp = temp.siguiente;
         }
 

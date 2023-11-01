@@ -5,7 +5,6 @@
 	Implementación de un arreglo de enteros 
 	usando la estructura de lista de enteros.
 */
-// Realizan con last
 
 #define MAX_SIZE 100 // constante para el tamaño máximo del arreglo
 

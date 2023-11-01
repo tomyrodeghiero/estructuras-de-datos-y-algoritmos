@@ -192,6 +192,12 @@ void mostrar( tipo_lista lista ){
 	printf( "]" );
 }
 
+/* Práctica No. 1 - Repaso */
+
+// Ejercicio 2 - a)
+/* reemplazar, que dada una lista l, un elemento e y una posición i, la función debería
+reemplazar el elemento que estaba en la posición i de l con e y retornar el elemento que
+estaba previamente en la posición i. */
 int reemplazar(tipo_lista lista, int elemento, int posicion) {
 	if (posicion < 0 || posicion > lista->elementos ) {
 		return -1;
@@ -209,6 +215,8 @@ int reemplazar(tipo_lista lista, int elemento, int posicion) {
 	return valor_previo;
 }
 
+/* intercambiar, que dada una lista l y dos posiciones de elementos enteros p1 y p2, 
+la función los intercambia. */
 void intercambiar(tipo_lista lista, int p1, int p2) {
 	int valor_p1 = obtener(lista, p1);
 	int valor_p2 = obtener(lista, p2);
