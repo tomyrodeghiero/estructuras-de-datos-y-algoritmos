@@ -18,37 +18,56 @@ public class ShortestPathFinderDijkstra {
     }
 
     public Map<Vertex, Integer> dijkstra(int startId) {
+        // Crear el vértice fuente a partir del ID de inicio
         Vertex source = new Vertex(startId);
+
+        // Mapa para almacenar la distancia mínima desde 'source' a cada vértice
         Map<Vertex, Integer> dist = new HashMap<>();
+
+        // Mapa para rastrear el vértice anterior en el camino más corto
         Map<Vertex, Vertex> prev = new HashMap<>();
+
+        // Mapa para almacenar el número de nodos en la ruta más corta desde 'source'
         Map<Vertex, Integer> numNodesInPath = new HashMap<>();
 
+        // Inicializar todos los vértices con distancia infinita, previo como null, y
+        // número de nodos en ruta como infinito
         for (Vertex v : adjList.keySet()) {
             dist.put(v, Integer.MAX_VALUE);
             prev.put(v, null);
             numNodesInPath.put(v, Integer.MAX_VALUE);
         }
 
+        // Establecer la distancia y el número de nodos en ruta a 'source' como 0
         dist.put(source, 0);
         numNodesInPath.put(source, 0);
 
+        // Cola de prioridad que ordena vértices por su distancia mínima
         PriorityQueue<Vertex> queue = new PriorityQueue<>(Comparator.comparingInt(dist::get));
         queue.addAll(adjList.keySet());
 
+        // Mientras la cola no esté vacía
         while (!queue.isEmpty()) {
+            // Obtener y remover el vértice con la distancia mínima de 'source'
             Vertex u = queue.poll();
 
+            // Si el vértice tiene vecinos
             if (adjList.containsKey(u)) {
+                // Iterar sobre todos los vecinos
                 for (Edge edge : adjList.get(u)) {
-                    Vertex y = edge.target;
-                    int weight = edge.weight;
-                    int newDist = dist.get(u) + weight;
-                    int newPathSize = numNodesInPath.get(u) + 1;
+                    Vertex y = edge.target; // El vértice objetivo de la arista
+                    int weight = edge.weight; // El peso de la arista
+                    int newDist = dist.get(u) + weight; // Nueva distancia potencial
+                    int newPathSize = numNodesInPath.get(u) + 1; // Nuevo tamaño del camino
 
+                    // Si la nueva distancia es menor o igual pero con menos nodos
                     if (newDist < dist.get(y) || (newDist == dist.get(y) && newPathSize < numNodesInPath.get(y))) {
+                        // Actualizar la distancia, el vértice previo, y el número de nodos en ruta para
+                        // 'y'
                         dist.put(y, newDist);
                         prev.put(y, u);
                         numNodesInPath.put(y, newPathSize);
+                        // Actualizar la cola de prioridad
                         queue.remove(y);
                         queue.add(y);
                     }
@@ -56,6 +75,7 @@ public class ShortestPathFinderDijkstra {
             }
         }
 
+        // Devolver el mapa de distancias
         return dist;
     }
 
@@ -102,7 +122,7 @@ public class ShortestPathFinderDijkstra {
 
         Map<Vertex, Integer> distances = finder.dijkstra(1);
         for (Map.Entry<Vertex, Integer> entry : distances.entrySet()) {
-            System.out.println("Distance from 1 to " + entry.getKey().id + " is " + entry.getValue());
+            System.out.println("Distancia de 1 a " + entry.getKey().id + " es " + entry.getValue());
         }
     }
 }

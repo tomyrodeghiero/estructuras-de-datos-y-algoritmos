@@ -48,33 +48,44 @@ public class DijkstraAlgorithm {
     }
 
     // Algoritmo de Dijkstra para encontrar el camino más corto desde un nodo fuente
-    // a todos los demás nodos
+    // a todos los demás nodos en un grafo.
     public static void dijkstra(List<List<Edge>> graph, int src) {
-        int n = graph.size();
-        int[] dist = new int[n];
-        Integer[] prev = new Integer[n];
+        int n = graph.size(); // Número total de nodos en el grafo
+        int[] dist = new int[n]; // Array para almacenar la distancia más corta desde src a cada nodo
+        Integer[] prev = new Integer[n]; // Array para almacenar el nodo anterior en el camino más corto
+
+        // Inicializa las distancias como infinito para todos los nodos excepto el nodo
+        // fuente
         Arrays.fill(dist, Integer.MAX_VALUE);
-        dist[src] = 0;
+        dist[src] = 0; // La distancia al nodo fuente es 0
 
+        // Cola de prioridad para almacenar los vértices según su distancia desde src
         PriorityQueue<Vertex> pq = new PriorityQueue<>();
-        pq.add(new Vertex(src, 0));
+        pq.add(new Vertex(src, 0)); // Añade el nodo fuente con distancia 0
 
+        // Mientras la cola de prioridad no esté vacía
         while (!pq.isEmpty()) {
+            // Extrae el vértice con la menor distancia desde src (esto se hace
+            // automáticamente en una PriorityQueue)
             Vertex vertex = pq.poll();
-            int u = vertex.id;
+            int u = vertex.id; // ID del vértice actual
 
+            // Itera a través de todos los vértices adyacentes al vértice actual
             for (Edge edge : graph.get(u)) {
-                int v = edge.to;
-                int weight = edge.weight;
+                int v = edge.to; // ID del vértice destino del borde actual
+                int weight = edge.weight; // Peso del borde actual
 
+                // Si la distancia al vértice v a través de u es más corta que la distancia
+                // conocida, actualiza la distancia
                 if (dist[u] + weight < dist[v]) {
-                    dist[v] = dist[u] + weight;
-                    prev[v] = u;
-                    pq.add(new Vertex(v, dist[v]));
+                    dist[v] = dist[u] + weight; // Actualiza la distancia
+                    prev[v] = u; // Actualiza el vértice anterior
+                    pq.add(new Vertex(v, dist[v])); // Añade el vértice actualizado a la cola de prioridad
                 }
             }
         }
 
+        // Imprime los caminos más cortos desde el nodo fuente a todos los demás nodos
         printShortestPaths(src, dist, prev);
     }
 

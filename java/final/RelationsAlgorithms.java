@@ -16,7 +16,7 @@ public class RelationsAlgorithms {
         return composition;
     }
 
-    // Método para calcular la clausura transitiva de R
+    // Método para calcular la clausura transitiva de R y S
     public static Set<Pair> transitiveClosure(Set<Pair> R) {
         Set<Pair> closure = new HashSet<>(R);
         boolean changed = true;

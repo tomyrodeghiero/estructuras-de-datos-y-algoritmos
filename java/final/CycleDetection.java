@@ -11,6 +11,12 @@ class Graph {
     }
 
     public void addEdge(int source, int dest) {
+        if (!adjList.containsKey(source)) {
+            adjList.put(source, new LinkedList<>());
+        }
+        if (!adjList.containsKey(dest)) {
+            adjList.put(dest, new LinkedList<>());
+        }
         adjList.get(source).add(dest);
     }
 
@@ -43,13 +49,15 @@ public class CycleDetection {
             visited.add(current);
 
             for (int adj : g.adjacentVertices(current)) {
-                // Si el nodo adyacente no ha sido visitado o es el nodo de inicio
-                if (!visited.contains(adj) || adj == start) {
-                    stack.push(adj);
-                    path.put(adj, current); // Guardar el predecesor
-                } else if (adj == start) {
+                if (adj == start) {
                     // Si encontramos el nodo de inicio mientras recorremos, hay un ciclo
                     return true;
+                }
+
+                // Si el nodo adyacente no ha sido visitado o es el nodo de inicio
+                if (!visited.contains(adj)) {
+                    stack.push(adj);
+                    path.put(adj, current); // Guardar el predecesor
                 }
             }
         }
@@ -64,7 +72,7 @@ public class CycleDetection {
         g.addEdge(3, 4);
         g.addEdge(4, 3);
         g.addEdge(5, 6);
-        g.addEdge(6, 1); // Esto crea un ciclo: 3 -> 4 -> 5 -> 6 -> 3
+        g.addEdge(6, 1);
 
         boolean hasCycle = detectarCicloDFS(g, 3);
         System.out.println("¿Hay un ciclo que incluya al nodo 2? " + hasCycle);
